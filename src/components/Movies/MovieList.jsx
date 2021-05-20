@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MovieItem from './MovieItem';
+import Pagintaion from './Pagination';
 import {Row, Col} from 'react-bootstrap';
 
 class MovieList extends Component {
@@ -8,22 +9,27 @@ class MovieList extends Component {
 
       this.state = {
          movies: [],
-         genres: []
+         genres: [],
+         page: 1
       }
    }
 
-   fetchMovies = filters => {
-      const {year} = filters;
-      const requestLink = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_3_API_KEY}&year=${year}`; 
+   fetchMovies = (filters, page) => {
+      const {year, sort} = filters;
+      const requestLink = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_3_API_KEY}&sort_by=${sort}&page=${page}&year=${year}`; 
       fetch(requestLink)
-         .then(response => {
-            return response.json();
-         })
+         .then(response => response.json())
          .then(data => {
             this.setState({
                movies: data.results,
             });
          });
+   }
+
+   onPageChange = page => {
+      this.setState({
+        page: page
+      });
    }
 
    componentDidMount() {
@@ -43,16 +49,25 @@ class MovieList extends Component {
          });
    }
 
-   componentDidUpdate(prevProps) {
-      if (this.props.filters.year !== prevProps.filters.year) {
-         this.fetchMovies(this.props.filters);
+   componentDidUpdate(prevProps, prevState) {
+      if (
+         this.props.filters.year !== prevProps.filters.year ||
+         this.props.filters.sort !== prevProps.filters.sort
+      ) {
+         this.onPageChange(1);
+         this.fetchMovies(this.props.filters, 1);
+      }
+
+      if (this.state.page !== prevState.page) {
+         this.fetchMovies(this.props.filters, this.state.page);
       }
    }
 
    render() {
-      const {movies, genres} = this.state;
+      const {movies, genres, page} = this.state;
+
       return (
-         <div>
+         <>
             <Row>
                {
                   movies.map(movie => {
@@ -64,12 +79,11 @@ class MovieList extends Component {
                   })
                }
             </Row>
-            {/* TODO: Pagingation */}
-            <ButtonGroup aria-label="Basic example">
-               <Button variant="secondary">Previous</Button>
-               <Button variant="secondary">Next</Button>
-            </ButtonGroup>
-         </div>
+            <Pagintaion 
+               page={page}
+               onPageChange={this.onPageChange}
+            />
+         </>
       );
    }
 }

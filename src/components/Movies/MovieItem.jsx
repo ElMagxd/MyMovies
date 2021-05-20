@@ -11,10 +11,18 @@ class MovieItem extends Component {
             currentGenre = type.name;
          }
       }
+      const imagePath = movie.backdrop_path || movie.poster_path;
       return (
          <div>
             <Card className="mb-4">
-               <Card.Img variant="top" src={`https://image.tmdb.org/t/p/w500${movie.backdrop_path || movie.poster_path}`} />
+               <div className="card__image">
+               <Card.Img 
+                  variant="top" 
+                  src={
+                     imagePath ? `https://image.tmdb.org/t/p/w500${imagePath}` : 'https://www.sion-consulting.com/wp-content/themes/consultix/images/no-image-found-360x250.png'
+                  } 
+               />
+               </div>
                <Card.Body>
                   <Card.Title>
                      {movie.title}

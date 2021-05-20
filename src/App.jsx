@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import MovieList from './components/Movies/MovieList';
-import Filter from './components/Filter';
+import Filter from './components/Filters/Filter';
 import {Container, Row, Col} from 'react-bootstrap';
 
 class App extends Component {
@@ -8,12 +8,13 @@ class App extends Component {
     super();
     this.state = {
       filters: {
-        year: '2020'
-      }
+        year: '2021',
+        sort: 'popularity.desc'
+      },
     }
   }
 
-  onChangeFilters = (event) => {
+  onChangeFilters = event => {
     const newFilters = {
       ...this.state.filters,
       [event.target.name]: event.target.value
@@ -22,7 +23,7 @@ class App extends Component {
     this.setState(prevState => ({
       filters: newFilters
     }))
-  }
+  }  
 
   render() {
     const {filters} = this.state;
@@ -30,12 +31,20 @@ class App extends Component {
       <div className="App">
         <Container className="mt-4">
           <Row>
+
             <Col>
-              <Filter filters={filters} onChangeFilters={this.onChangeFilters}/>
+              <Filter 
+                filters={filters} 
+                onChangeFilters={this.onChangeFilters}
+              />
             </Col>
+
             <Col xs={9}>
-              <MovieList filters={filters} />
+              <MovieList 
+                filters={filters} 
+              />
             </Col>
+
           </Row>
         </Container>
       </div>
