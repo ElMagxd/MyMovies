@@ -14,39 +14,46 @@ class MovieList extends Component {
       }
    }
 
-   fetchMovies = (filters, page) => {
-      const {year, sort} = filters;
-      const requestLink = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_3_API_KEY}&sort_by=${sort}&page=${page}&year=${year}`; 
-      fetch(requestLink)
-         .then(response => response.json())
-         .then(data => {
-            this.setState({
-               movies: data.results,
-            });
-         });
-   }
-
-   onPageChange = page => {
-      this.setState({
-        page: page
+   scrollToTop() {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
       });
    }
 
-   componentDidMount() {
+   async fetchMovies(filters, page)  {
+      const {year, sort} = filters;
+      const requestLink = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_3_API_KEY}&sort_by=${sort}&page=${page}&year=${year}`; 
+      const response = await fetch(requestLink);
+      const data = await response.json();
+      this.setState({
+         movies: data.results,
+      });
+   }
+
+   onPageChange = page => event => {
+      this.setState(prevState => {
+         return {
+            ...prevState,
+            page
+         }
+      });
+      this.scrollToTop();
+   }
+
+   async componentDidMount() {
       this.fetchMovies(this.props.filters)
 
       // TODO: Genres have to be in global state
       const genresLink = `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_3_API_KEY}`
-      fetch(genresLink)
-         .then(response => {
-            return response.json();
-         })
-         .then(data => {
-            this.setState({ 
-               ...this.state,
-               genres: data.genres
-            });
-         });
+      const response = await fetch(genresLink);
+      const data = await response.json();
+      this.setState(prevState => { 
+         return {
+            ...prevState,
+            genres: data.genres
+         }
+      });
    }
 
    componentDidUpdate(prevProps, prevState) {
@@ -65,20 +72,19 @@ class MovieList extends Component {
 
    render() {
       const {movies, genres, page} = this.state;
-
       return (
          <>
             <Row>
-               {
-                  movies.map(movie => {
-                     return (
-                        <Col xs={6} key={movie.id}>
-                           <MovieItem movie={movie} genres={genres}/>
-                        </Col>
-                     )
-                  })
-               }
+               {movies.map(movie => (
+                  <Col xs={6} key={movie.id}>
+                     <MovieItem 
+                        movie={movie} 
+                        genres={genres}
+                     />
+                  </Col>
+               ))}
             </Row>
+
             <Pagintaion 
                page={page}
                onPageChange={this.onPageChange}

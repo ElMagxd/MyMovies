@@ -2,12 +2,7 @@ import React, { Component } from 'react';
 import {Row, Col, ButtonGroup, Button} from 'react-bootstrap';
 
 class Pagination extends Component {
-   scrollToTop() {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-   }
+   
    render() {
       const {page, onPageChange} = this.props;
       return (
@@ -18,23 +13,16 @@ class Pagination extends Component {
                      {page !== 1 &&
                         <Button 
                            variant="light" 
-                           onClick={() => {
-                              onPageChange(1);
-                              this.scrollToTop();
-                           }}
+                           onClick={onPageChange(1)}
                         >
                            To first
                         </Button>
                      }
                      
-
                      <Button 
                         variant="light" 
                         disabled={page === 1}
-                        onClick={() => {
-                           onPageChange(page - 1);
-                           this.scrollToTop();
-                        }}
+                        onClick={onPageChange(page - 1)}
                      >
                         Previous
                      </Button>
@@ -42,10 +30,7 @@ class Pagination extends Component {
                      {page - 2 > 0 && 
                         <Button 
                            variant="light" 
-                           onClick={() => {
-                              onPageChange(page - 2);
-                              this.scrollToTop();
-                           }}
+                           onClick={onPageChange(page - 2)}
                         >
                            {page - 2}
                         </Button>
@@ -54,10 +39,7 @@ class Pagination extends Component {
                      {page - 1 > 0 &&
                         <Button 
                            variant="light" 
-                           onClick={() => {
-                              onPageChange(page - 1);
-                              this.scrollToTop();
-                           }}
+                           onClick={onPageChange(page - 1)}
                         >
                            {page - 1}
                         </Button>
@@ -72,30 +54,21 @@ class Pagination extends Component {
 
                      <Button 
                         variant="light" 
-                        onClick={() => {
-                           onPageChange(page + 1);
-                           this.scrollToTop();
-                        }}
+                        onClick={onPageChange(page + 1)}
                      >
                         {page + 1}
                      </Button>
 
                      <Button 
                         variant="light" 
-                        onClick={() => {
-                           onPageChange(page + 2);
-                           this.scrollToTop();
-                        }}
+                        onClick={onPageChange(page + 2)}
                      >
                         {page + 2}
                      </Button>
 
                      <Button 
                         variant="light" 
-                        onClick={() => {
-                           onPageChange(page + 1);
-                           this.scrollToTop();
-                        }}
+                        onClick={onPageChange(page + 1)}
                      >
                         Next
                      </Button>

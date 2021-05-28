@@ -1,55 +1,35 @@
-import React, { Component } from 'react';
-import MovieList from './components/Movies/MovieList';
-import Filter from './components/Filters/Filter';
-import {Container, Row, Col} from 'react-bootstrap';
+import HomePage from './components/Pages/HomePage';
+import MoviePage from './components/Pages/MoviePage'
+import E404 from './components/Pages/E404'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import {Route, Switch, Redirect} from 'react-router-dom'
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      filters: {
-        year: '2021',
-        sort: 'popularity.desc'
-      },
-    }
-  }
+const App = () => {
+  return (
+    <>
+      <Header/>
 
-  onChangeFilters = event => {
-    const newFilters = {
-      ...this.state.filters,
-      [event.target.name]: event.target.value
-    };
+      <Switch>
+        <Route
+          path="/"
+          component={HomePage}
+          exact
+        />
+        <Route
+          path="/movies/:id"
+          component={MoviePage}
+        />
+        <Redirect from="/movies" to="/" />
+        <Route
+          path="*"
+          component={E404}
+        />
+      </Switch>
 
-    this.setState(prevState => ({
-      filters: newFilters
-    }))
-  }  
-
-  render() {
-    const {filters} = this.state;
-    return (
-      <div className="App">
-        <Container className="mt-4">
-          <Row>
-
-            <Col>
-              <Filter 
-                filters={filters} 
-                onChangeFilters={this.onChangeFilters}
-              />
-            </Col>
-
-            <Col xs={9}>
-              <MovieList 
-                filters={filters} 
-              />
-            </Col>
-
-          </Row>
-        </Container>
-      </div>
-    );
-  }
-}
+      <Footer />
+    </>
+  );
+};
 
 export default App;

@@ -22,7 +22,7 @@ class SortSelect extends React.Component {
                {label}
             </label>
             <select 
-               className="filter__year form-control mb-2" 
+               className="filter__year form-control mb-3" 
                name={name}
                id={name}
                value={value} 
@@ -31,7 +31,9 @@ class SortSelect extends React.Component {
                {
                   options.map((option, index) => {
                      return (
-                        <option value={option.value} key={index}>{option.label}</option>
+                        <option value={option.value} key={index}>
+                           {option.label}
+                        </option>
                      )
                   })
                }

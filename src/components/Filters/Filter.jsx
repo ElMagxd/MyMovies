@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SortSelect from './SortSelect';
-import {Card} from 'react-bootstrap';
+import {Card, Form, Button} from 'react-bootstrap';
 
 const sortByOptions = [
    {
@@ -31,16 +31,16 @@ for(let i = 2021; i > 1900; i-- ) {
 
 class filter extends Component {
    render() {
-      const {filters: {year, sort}, onChangeFilters} = this.props;
+      const {filters: {year, sort}, onChangeFilters, resetFilter} = this.props;
 
       return (
          <>
             <Card style={{width: "100%"}}>
-            <Card.Body>
-                  <Card.Title>
-                     Фильтры
-                  </Card.Title>
-                  <div className="form-group">
+               <Card.Header>
+                  Fiters
+               </Card.Header>
+               <Card.Body>
+                  <Form.Group>
                      <SortSelect 
                         value={year} 
                         onChange={onChangeFilters}
@@ -55,9 +55,17 @@ class filter extends Component {
                         name={'sort'}
                         label={'Sort by:'}
                      />
-                  </div>
-                  
+                  </Form.Group>
                </Card.Body>
+               <Card.Footer>
+                  <Button 
+                     variant="secondary" 
+                     block
+                     onClick={resetFilter}
+                  >
+                     Reset filter
+                  </Button>
+               </Card.Footer>
             </Card>
          </>
       );
