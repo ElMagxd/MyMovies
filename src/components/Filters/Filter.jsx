@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
 import SortSelect from './SortSelect';
 import {Card, Form, Button} from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
 const sortByOptions = [
    {
@@ -29,47 +29,51 @@ for(let i = 2021; i > 1900; i-- ) {
    })
 }
 
-class filter extends Component {
-   render() {
-      const {filters: {year, sort}, onChangeFilters, resetFilter} = this.props;
-
-      return (
-         <>
-            <Card style={{width: "100%"}}>
-               <Card.Header>
-                  Fiters
-               </Card.Header>
-               <Card.Body>
-                  <Form.Group>
-                     <SortSelect 
-                        value={year} 
-                        onChange={onChangeFilters}
-                        options={yearOptions}
-                        name={'year'}
-                        label={'Year:'}
-                     />
-                     <SortSelect 
-                        value={sort} 
-                        onChange={onChangeFilters}
-                        options={sortByOptions}
-                        name={'sort'}
-                        label={'Sort by:'}
-                     />
-                  </Form.Group>
-               </Card.Body>
-               <Card.Footer>
-                  <Button 
-                     variant="secondary" 
-                     block
-                     onClick={resetFilter}
-                  >
-                     Reset filter
-                  </Button>
-               </Card.Footer>
-            </Card>
-         </>
-      );
-   }
+function Filter({filters: {year, sort}, onChangeFilters, resetFilter}) {
+   return (
+      <>
+         <Card style={{width: "100%"}}>
+            <Card.Header>
+               Fiters
+            </Card.Header>
+            <Card.Body>
+               <Form.Group>
+                  <SortSelect 
+                     value={year} 
+                     onChange={onChangeFilters}
+                     options={yearOptions}
+                     name={'year'}
+                     label={'Year:'}
+                  />
+                  <SortSelect 
+                     value={sort} 
+                     onChange={onChangeFilters}
+                     options={sortByOptions}
+                     name={'sort'}
+                     label={'Sort by:'}
+                  />
+               </Form.Group>
+            </Card.Body>
+            <Card.Footer>
+               <Button 
+                  variant="secondary" 
+                  block
+                  onClick={resetFilter}
+               >
+                  Reset filter
+               </Button>
+            </Card.Footer>
+         </Card>
+      </>
+   );
 }
 
-export default filter;
+Filter.propTypes = {
+   // filters: PropTypes.object.isRequired,
+   filters: PropTypes.objectOf(PropTypes.string).isRequired,
+   onChangeFilters: PropTypes.func.isRequired,
+   resetFilter: PropTypes.func.isRequired,
+};
+
+
+export default Filter;

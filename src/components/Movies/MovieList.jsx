@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 import MovieItem from './MovieItem';
 import Pagintaion from './Pagination';
 import {Row, Col} from 'react-bootstrap';
 
-class MovieList extends Component {
+class MovieList extends React.Component {
    constructor() {
       super();
 
       this.state = {
          movies: [],
          genres: [],
-         page: 1
+         page: 1,
+         totalPages: 1
       }
    }
 
@@ -28,6 +29,7 @@ class MovieList extends Component {
       const data = await response.json();
       this.setState({
          movies: data.results,
+         totalPages: data.total_pages,
       });
    }
 
@@ -44,7 +46,6 @@ class MovieList extends Component {
    async componentDidMount() {
       this.fetchMovies(this.props.filters)
 
-      // TODO: Genres have to be in global state
       const genresLink = `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.REACT_APP_3_API_KEY}`
       const response = await fetch(genresLink);
       const data = await response.json();
@@ -75,7 +76,7 @@ class MovieList extends Component {
       return (
          <>
             <Row>
-               {movies.map(movie => (
+               {movies && movies.map(movie => (
                   <Col xs={6} key={movie.id}>
                      <MovieItem 
                         movie={movie} 
@@ -88,6 +89,7 @@ class MovieList extends Component {
             <Pagintaion 
                page={page}
                onPageChange={this.onPageChange}
+               totalPages={this.state.totalPages}
             />
          </>
       );

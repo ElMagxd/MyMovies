@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import MovieList from '../Movies/MovieList';
 import Filter from '../Filters/Filter';
-import {Container, Row, Col} from 'react-bootstrap';
+import {Row, Col} from 'react-bootstrap';
 
 const initialFilters = {
   year: '2021',
@@ -22,27 +22,23 @@ const HomePage = () => {
 
   return (
     <>
-      <main className="main">
-        <Container className="mt-4">
-          <Row>
+      <Row>
 
-            <Col>
-              <Filter 
-                filters={filters} 
-                onChangeFilters={onChangeFilters}
-                resetFilter={resetFilter}
-              />
-            </Col>
+         <Col>
+            <Filter 
+               filters={filters} 
+               onChangeFilters={onChangeFilters}
+               resetFilter={resetFilter}
+            />
+         </Col>
 
-            <Col xs={9}>
-              <MovieList 
-                filters={filters} 
-              />
-            </Col>
+         <Col xs={9}>
+            <MovieList 
+               filters={filters} 
+            />
+         </Col>
 
-          </Row>
-        </Container>
-      </main>
+      </Row>
     </>
   );
 };

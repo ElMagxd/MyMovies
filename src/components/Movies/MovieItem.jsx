@@ -1,8 +1,13 @@
 import {Card} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const MovieItem = props => {
-   const {movie, genres} = props;
+MovieItem.propTypes = {
+   movie: PropTypes.object.isRequired,
+   genres: PropTypes.arrayOf(PropTypes.object).isRequired
+}
+
+function MovieItem({movie, genres})  {
    const genreId = movie.genre_ids[0];
    let currentGenre;
    for (const genre of genres) {
@@ -32,9 +37,9 @@ const MovieItem = props => {
                </Card.Text>
             </Card.Body>
             <Card.Footer>
-               {movie.release_date.substring(0,4)}, {currentGenre}
+               {movie.release_date?.substring(0,4)}, {currentGenre}
             </Card.Footer>
-            <Link to={`/movies/${props.movie.id}`} className="movie-card__link"></Link>
+            <Link to={`/movies/${movie.id}`} className="movie-card__link"></Link>
          </Card>
       </>
    );
