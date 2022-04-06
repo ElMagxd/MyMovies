@@ -21,11 +21,11 @@ function MovieItem({movie, genres})  {
       <>
          <Card className="mb-4 movie-card">
             <div className="card__image">
-            <Card.Img 
-               variant="top" 
+            <Card.Img
+               variant="top"
                src={
                   imagePath ? `https://image.tmdb.org/t/p/w500${imagePath}` : 'https://www.sion-consulting.com/wp-content/themes/consultix/images/no-image-found-360x250.png'
-               } 
+               }
             />
             </div>
             <Card.Body>
@@ -39,7 +39,7 @@ function MovieItem({movie, genres})  {
             <Card.Footer>
                {movie.release_date?.substring(0,4)}, {currentGenre}
             </Card.Footer>
-            <Link to={`/movies/${movie.id}`} className="movie-card__link"></Link>
+            <Link to={`/MyMovies/movies/${movie.id}`} className="movie-card__link"></Link>
          </Card>
       </>
    );

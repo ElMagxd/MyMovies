@@ -16,19 +16,19 @@ const App = () => {
         <Container>
           <Switch>
             <Route
-              path="/"
+              path="/MyMovies/"
               component={HomePage}
               exact
             />
             <Route
-              path="/search"
+              path="/MyMovies/search"
               component={SearchResult}
             />
             <Route
-              path="/movies/:id"
+              path="/MyMovies/movies/:id"
               component={MoviePage}
             />
-            <Redirect from="/movies" to="/" />
+            <Redirect from="/MyMovies/movies" to="/MyMovies/" />
             <Route
               path="*"
               component={E404}

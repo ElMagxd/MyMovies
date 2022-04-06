@@ -6,7 +6,7 @@ function Footer() {
       <footer className="footer">
          <Navbar bg="dark" variant="dark">
             <Container style={{padding: "0 15px"}}>
-               <Link to="/" className="navbar-brand">
+               <Link to="/MyMovies/" className="navbar-brand">
                   MyMovies
                </Link>
                <Navbar.Text>

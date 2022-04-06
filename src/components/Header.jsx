@@ -21,14 +21,14 @@ const Header = () => {
          {redirect &&
             <Redirect
                to={{
-                  pathname: "/search",
+                  pathname: "/MyMovies/search",
                   search: `?q=${searchInput}`,
                }}
             />
          }
          <Navbar bg="dark" variant="dark">
             <Container style={{padding: "0 15px"}}>
-               <Link to="/" className="navbar-brand">
+               <Link to="/MyMovies/" className="navbar-brand">
                   MyMovies
                </Link>
 
