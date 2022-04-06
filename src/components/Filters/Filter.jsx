@@ -38,15 +38,15 @@ function Filter({filters: {year, sort}, onChangeFilters, resetFilter}) {
             </Card.Header>
             <Card.Body>
                <Form.Group>
-                  <SortSelect 
-                     value={year} 
+                  <SortSelect
+                     value={year}
                      onChange={onChangeFilters}
                      options={yearOptions}
                      name={'year'}
                      label={'Year:'}
                   />
-                  <SortSelect 
-                     value={sort} 
+                  <SortSelect
+                     value={sort}
                      onChange={onChangeFilters}
                      options={sortByOptions}
                      name={'sort'}
@@ -55,9 +55,8 @@ function Filter({filters: {year, sort}, onChangeFilters, resetFilter}) {
                </Form.Group>
             </Card.Body>
             <Card.Footer>
-               <Button 
-                  variant="secondary" 
-                  block
+               <Button
+                  variant="secondary"
                   onClick={resetFilter}
                >
                   Reset filter

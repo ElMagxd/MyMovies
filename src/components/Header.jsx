@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import {Navbar, Container, Form, FormControl, Button} from 'react-bootstrap';
+import {Navbar, Container, Form, FormControl, Button, Row, Col} from 'react-bootstrap';
 import {Link, Redirect} from 'react-router-dom';
 
 const Header = () => {
    const [searchInput, setSearchInput] = useState('');
    const [redirect, setRedirect] = useState(false);
-   
+
    const searchFormHandler = event => {
       event.preventDefault();
       setRedirect(true);
@@ -18,7 +18,7 @@ const Header = () => {
 
    return (
       <header className="header">
-         {redirect && 
+         {redirect &&
             <Redirect
                to={{
                   pathname: "/search",
@@ -38,15 +38,19 @@ const Header = () => {
                   </NavLink>
                </Nav> */}
 
-               <Form inline onSubmit={searchFormHandler}>
-                  <FormControl 
-                     type="text" 
-                     placeholder="Search" 
-                     className="mr-sm-2" 
-                     value={searchInput}
-                     onChange={searchInputHandler}
-                  />
-                  <Button type="submit" variant="secondary">Search</Button>
+               <Form onSubmit={searchFormHandler}>
+                  <Row>
+                     <Col>
+                        <FormControl
+                           type="text"
+                           placeholder="Search"
+                           className="mr-sm-2"
+                           value={searchInput}
+                           onChange={searchInputHandler}
+                        />
+                     </Col>
+                     <Col><Button type="submit" variant="secondary">Search</Button></Col>
+                  </Row>
                </Form>
 
                {/* TODO: Authorization
@@ -60,4 +64,3 @@ const Header = () => {
 }
 
 export default Header;
-
